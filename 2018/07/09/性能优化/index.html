@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="网上鲜有get和set的方法的实例，在这边再mark一下。 get和set我个人理解本身只是一个语法糖，它定义的属性相当于“存储器属性” 为内部属性提供了一个方便习惯的读/写方式 ES5写法12345678910111213141516171819function Number(num) &amp;#123;  this._num = num           //这里的_num和get/set方法nu">
+<meta name="description" content="继续上一内容，更新第四部分，防重复点击-节流函数的使用。   截图分享功能 按钮防重复点击(节流函数应用) 下拉刷新，上拉加载更多(这个地方有坑)  ==4. 性能优化方面== 项目用webpack进行打包，所以js,css，图片本身已经进行了压缩，这里挂个链接，写的挺不错的一篇，对于一般的性能优化做了介绍。前端性能优化 页面重绘，重排也是需要注意的点，防抖节流方面，css优化也是需要注意的。这">
 <meta name="keywords" content="前端">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript get set方法 ES5&#x2F;ES6写法">
-<meta property="og:url" content="http://yoursite.com/2018/05/07/JavaScript-get-set方法-ES5-ES6写法/index.html">
+<meta property="og:title" content="性能优化">
+<meta property="og:url" content="http://yoursite.com/2018/07/09/性能优化/index.html">
 <meta property="og:site_name" content="Initial_W">
-<meta property="og:description" content="网上鲜有get和set的方法的实例，在这边再mark一下。 get和set我个人理解本身只是一个语法糖，它定义的属性相当于“存储器属性” 为内部属性提供了一个方便习惯的读/写方式 ES5写法12345678910111213141516171819function Number(num) &amp;#123;  this._num = num           //这里的_num和get/set方法nu">
+<meta property="og:description" content="继续上一内容，更新第四部分，防重复点击-节流函数的使用。   截图分享功能 按钮防重复点击(节流函数应用) 下拉刷新，上拉加载更多(这个地方有坑)  ==4. 性能优化方面== 项目用webpack进行打包，所以js,css，图片本身已经进行了压缩，这里挂个链接，写的挺不错的一篇，对于一般的性能优化做了介绍。前端性能优化 页面重绘，重排也是需要注意的点，防抖节流方面，css优化也是需要注意的。这">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-07T02:45:59.635Z">
+<meta property="og:updated_time" content="2018-07-09T09:10:50.807Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript get set方法 ES5&#x2F;ES6写法">
-<meta name="twitter:description" content="网上鲜有get和set的方法的实例，在这边再mark一下。 get和set我个人理解本身只是一个语法糖，它定义的属性相当于“存储器属性” 为内部属性提供了一个方便习惯的读/写方式 ES5写法12345678910111213141516171819function Number(num) &amp;#123;  this._num = num           //这里的_num和get/set方法nu">
+<meta name="twitter:title" content="性能优化">
+<meta name="twitter:description" content="继续上一内容，更新第四部分，防重复点击-节流函数的使用。   截图分享功能 按钮防重复点击(节流函数应用) 下拉刷新，上拉加载更多(这个地方有坑)  ==4. 性能优化方面== 项目用webpack进行打包，所以js,css，图片本身已经进行了压缩，这里挂个链接，写的挺不错的一篇，对于一般的性能优化做了介绍。前端性能优化 页面重绘，重排也是需要注意的点，防抖节流方面，css优化也是需要注意的。这">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/07/JavaScript-get-set方法-ES5-ES6写法/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/09/性能优化/"/>
 
 
 
 
 
-  <title>JavaScript get set方法 ES5/ES6写法 | Initial_W</title>
+  <title>性能优化 | Initial_W</title>
   
 
 
@@ -283,7 +283,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/07/JavaScript-get-set方法-ES5-ES6写法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/09/性能优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="WANG.JIE">
@@ -300,7 +300,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript get set方法 ES5/ES6写法</h1>
+          <h1 class="post-title" itemprop="name headline">性能优化</h1>
         
 
         <div class="post-meta">
@@ -312,8 +312,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-07T10:38:50+08:00">
-                2018-05-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-09T17:07:58+08:00">
+                2018-07-09
               </time>
             
 
@@ -372,28 +372,34 @@
       
 
       
-        <p>网上鲜有get和set的方法的实例，在这边再mark一下。</p>
-<p>get和set我个人理解本身只是一个语法糖，它定义的属性相当于“存储器属性”</p>
-<p>为内部属性提供了一个方便习惯的读/写方式</p>
-<h3 id="ES5写法"><a href="#ES5写法" class="headerlink" title="ES5写法"></a>ES5写法</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function Number(<span class="built_in">num</span>) &#123;</span><br><span class="line">  <span class="keyword">this</span>._num = <span class="built_in">num</span>           <span class="comment">//这里的_num和get/set方法num()不能重名</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//get/set方法使用同一个命名，增加可读性</span></span><br><span class="line">Number.prototype = &#123;</span><br><span class="line">  <span class="keyword">get</span> <span class="built_in">num</span>() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._num;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="keyword">set</span> <span class="built_in">num</span>(<span class="built_in">num</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>._num = <span class="built_in">num</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> test = <span class="keyword">new</span> Number(<span class="number">8</span>);</span><br><span class="line">console.log(test.<span class="built_in">num</span>);</span><br><span class="line">test.<span class="built_in">num</span> = <span class="number">88</span>;</span><br><span class="line">console.log(test.<span class="built_in">num</span>);</span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<blockquote>
-<p>8</p>
+        <blockquote>
+<p>继续上一内容，更新第四部分，防重复点击-节流函数的使用。</p>
 </blockquote>
-<blockquote>
-<p>88</p>
-</blockquote>
-<p>在这里，定义了Number类的一个值_num，再原型中注入set和get方法，此时就可以使用test.num取值和赋值，更加直观。</p>
-<hr>
-<h3 id="ES6写法"><a href="#ES6写法" class="headerlink" title="ES6写法"></a>ES6写法</h3><p>再看看用ES6中class的实现：</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Num</span> </span>&#123;</span><br><span class="line">  constructor(<span class="built_in">num</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>._num = <span class="built_in">num</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">get</span> <span class="built_in">num</span>() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._num;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">set</span> <span class="built_in">num</span>(<span class="built_in">num</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>._num = <span class="built_in">num</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> test = <span class="keyword">new</span> Num(<span class="number">9</span>);</span><br><span class="line">console.log(test.<span class="built_in">num</span>);</span><br><span class="line">test.<span class="built_in">num</span> = <span class="number">99</span>;</span><br><span class="line">console.log(test.<span class="built_in">num</span>);</span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<blockquote>
-<p>9</p>
-</blockquote>
-<blockquote>
-<p>99</p>
-</blockquote>
+<ol>
+<li>截图分享功能</li>
+<li>按钮防重复点击(节流函数应用)</li>
+<li>下拉刷新，上拉加载更多(这个地方有坑)</li>
+</ol>
+<p>==4. 性能优化方面==</p>
+<p>项目用webpack进行打包，所以js,css，图片本身已经进行了压缩，这里挂个链接，写的挺不错的一篇，对于一般的性能优化做了介绍。<br><a href="https://juejin.im/post/5b0bff30f265da08f76cc6f0" target="_blank" rel="noopener">前端性能优化</a></p>
+<p>页面重绘，重排也是需要注意的点，防抖节流方面，css优化也是需要注意的。这里也给推荐一篇，读完受益挺多的。<br><a href="https://juejin.im/entry/5975f1766fb9a06bba474a5a" target="_blank" rel="noopener">多方面性能优化</a></p>
+<p>像这篇文章里面提到的雅虎军规，这个提的比较早了，挺多年前的，不过即使到现在也是该遵循的，之前有用雅虎提供的一个谷歌插件来测试网站性能，叫做 y-slow， 不过现在好像搜不到了，可以试下这个<br><a href="https://github.com/pod4g/hiper" target="_blank" rel="noopener">用于性能测试的统计分析工具</a>，工具能给我们提供许多帮助，但是最终还是需要自己平时写代码时就注意这些方面。尽量从源头上保证性能。</p>
+<h2 id="体积压缩"><a href="#体积压缩" class="headerlink" title="体积压缩"></a>体积压缩</h2><p>阐述一下之前项目遇到的问题，首屏加载慢，如上所说，项目已经开启了压缩，服务端开启了gzip，走了CDN,看了下首屏加载还有400K左右，在移动端还是有点偏大，该优化的部分都优化了，怎么办呢，就得从项目体积上想办法了。</p>
+<p>首屏加载可以去看看Main.js里面究竟引用了些什么东西。<br>就像下面的这个，全局引入了echarts，虽然已经是按需引入了，但是全局还是导致了首页渲染速度慢。<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">main.js</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// echarts</span></span><br><span class="line"><span class="keyword">import</span> ECharts <span class="keyword">from</span> <span class="string">'./components/ECharts.vue'</span>;</span><br><span class="line"><span class="comment">// 手动引入 ECharts 各模块来减小打包体积</span></span><br><span class="line"><span class="comment">// import 'echarts';</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'echarts/lib/component/tooltip'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'echarts/lib/component/markPoint.js'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'echarts/lib/component/axis'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'echarts/lib/component/grid'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'echarts/lib/component/dataZoom'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'echarts/lib/component/visualMap'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'zrender/lib/svg/svg'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'echarts/lib/chart/candlestick'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'echarts/lib/chart/line'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'echarts/lib/chart/bar'</span>;</span><br><span class="line">Vue.component(<span class="string">'chart'</span>, ECharts);</span><br></pre></td></tr></table></figure></p>
+<p>当把这块移到需要用到的地方后，构建项目查看，惊呆了有没有，瞬间减小了一半，变成了236K。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//</span> 国际化</span><br><span class="line"><span class="regexp">//</span> import VueI18n from <span class="string">'vue-i18n'</span>;</span><br><span class="line"><span class="regexp">//</span> Vue.use(VueI18n);</span><br><span class="line"><span class="regexp">//</span> const i18n = new VueI18n(&#123;</span><br><span class="line"><span class="regexp">//</span>     locale: <span class="string">'zh-CN'</span>, <span class="regexp">//</span> 语言标识</span><br><span class="line"><span class="regexp">//</span>     <span class="regexp">//</span> this.<span class="variable">$i18n</span>.locale <span class="regexp">//</span> 通过切换locale的值来实现语言切换</span><br><span class="line"><span class="regexp">//</span>     messages: &#123;</span><br><span class="line"><span class="regexp">//</span>         <span class="string">'zh-CN'</span>: require(<span class="string">'./common/lang/zh'</span>) <span class="regexp">//</span> 中文语言包</span><br><span class="line"><span class="regexp">//</span>         <span class="regexp">//</span> <span class="string">'en-US'</span>: require(<span class="string">'./common/lang/en'</span>)    <span class="regexp">//</span> 英文语言包</span><br><span class="line"><span class="regexp">//</span>     &#125;</span><br><span class="line"><span class="regexp">//</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p>突然发现了甜头，那就继续再看，发现下面还有个 语言包，为了以后项目的国际化，暂时还没有用到的，先去除吧，去除后又是60K左右，这样项目首页就从 450K 变成了 176K，首屏加载已经差不多了。</p>
+<p>但是。。。。。。。。。。。</p>
+<p>为了更好的性能优化，我们不仅仅只是将组件移出，在需要加载的地方还需要加上懒加载，这样效果会更好一些。</p>
+<p>如下： 在views里的vue组件里添加需要懒加载的部分。这样就算结束了这个优化点了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">components: &#123;</span><br><span class="line">        MarketCell, MarketListHeader,</span><br><span class="line">        chart: <span class="function"><span class="params">resolve</span> =&gt;</span> &#123;<span class="built_in">require</span>([<span class="string">'../../../components/ECharts.vue'</span>], resolve)&#125;,<span class="comment">//懒加载</span></span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+<h2 id="图片懒加载-loading状态"><a href="#图片懒加载-loading状态" class="headerlink" title="图片懒加载 + loading状态"></a>图片懒加载 + loading状态</h2><p>图片懒加载实现的方式比较多，百度一搜都挺多的，大家多搜搜，我们不做伸手党哈，这里说下加loading状态，这个算是一种思维的体现，告诉我们在做项目的时候，方法是千千万的，换个思路都能完成。</p>
+<p>达成的效果就是在图片还未加载成功时显示一张loading效果图。<br>聪明的大家看代码就知道了，挺取巧的一个办法。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> &lt;<span class="selector-tag">div</span> class=<span class="string">"news-img-wrap img-loading"</span>&gt;</span><br><span class="line">    &lt;<span class="selector-tag">img</span> class=<span class="string">"news-img"</span> v-lazy.container=<span class="string">"news.pic"</span>  alt=<span class="string">""</span>&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.img-loading</span> &#123;</span><br><span class="line">        <span class="attribute">background</span>: <span class="number">#fff</span> no-repeat url(<span class="string">'/static/img/imgLoding.png'</span>) center center;</span><br><span class="line">        <span class="attribute">background-size</span>: cover;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+<p>外层div固定大小，设个背景图，这样图片未加载出来时会显示loading效果，图片加载失败时也可以直接用onerror 直接指向另一张图片，都是解决方法。</p>
+<h2 id="其他方面"><a href="#其他方面" class="headerlink" title="其他方面"></a>其他方面</h2><p>路由方面需要设置的几个，404，网络错误，暂无数据，避免页面白屏。</p>
+<p>动画方面建议开启3d加速，可以使用 CSS 中的 will-change: transform; 或者  transform: translateZ(0); 这样来将元素提升至单独的图层中。</p>
+<p>降低绘制复杂度,某些属性的重绘相对而言更加复杂，比如 filter、box-shadow 等滤镜或渐变效果。因此不要滥用这类效果。</p>
 
       
     </div>
@@ -424,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/04/地址栏中输入url到显示出网页间的过程/" rel="next" title="地址栏中输入url到显示出网页间的过程">
-                <i class="fa fa-chevron-left"></i> 地址栏中输入url到显示出网页间的过程
+              <a href="/2018/07/09/下拉刷新，上拉加载更多/" rel="next" title="拉刷新，上拉加载更多">
+                <i class="fa fa-chevron-left"></i> 拉刷新，上拉加载更多
               </a>
             
           </div>
@@ -433,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/07/node项目发送邮件失败/" rel="prev" title="node项目发送邮件失败">
-                node项目发送邮件失败 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -593,7 +595,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES5写法"><span class="nav-number">1.</span> <span class="nav-text">ES5写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6写法"><span class="nav-number">2.</span> <span class="nav-text">ES6写法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#体积压缩"><span class="nav-number">1.</span> <span class="nav-text">体积压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片懒加载-loading状态"><span class="nav-number">2.</span> <span class="nav-text">图片懒加载 + loading状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他方面"><span class="nav-number">3.</span> <span class="nav-text">其他方面</span></a></li></ol></div>
             
 
           </div>
