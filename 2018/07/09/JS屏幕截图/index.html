@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/lfavicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近比较忙，很久没写博客了，今天抽空将最近项目中遇到的一些问题及一些解决方案记录一下。  最近接触的项目主要是移动端的，关于移动端方面适配之类的文章太多了，对这方面的技术不做过多的阐述。主要记录下这次中遇到的一些吧。  截图分享功能 按钮防重复点击(节流函数应用) 下拉刷新，上拉加载更多(这个地方有坑) 性能优化方面  截图分享功能事因：移动端分享功能，产品经理给的原型是 点击分享后将需要分享的">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS屏幕截图">
+<meta property="og:url" content="http://yoursite.com/2018/07/09/JS屏幕截图/index.html">
+<meta property="og:site_name" content="Initial_W">
+<meta property="og:description" content="最近比较忙，很久没写博客了，今天抽空将最近项目中遇到的一些问题及一些解决方案记录一下。  最近接触的项目主要是移动端的，关于移动端方面适配之类的文章太多了，对这方面的技术不做过多的阐述。主要记录下这次中遇到的一些吧。  截图分享功能 按钮防重复点击(节流函数应用) 下拉刷新，上拉加载更多(这个地方有坑) 性能优化方面  截图分享功能事因：移动端分享功能，产品经理给的原型是 点击分享后将需要分享的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-09T03:20:51.041Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS屏幕截图">
+<meta name="twitter:description" content="最近比较忙，很久没写博客了，今天抽空将最近项目中遇到的一些问题及一些解决方案记录一下。  最近接触的项目主要是移动端的，关于移动端方面适配之类的文章太多了，对这方面的技术不做过多的阐述。主要记录下这次中遇到的一些吧。  截图分享功能 按钮防重复点击(节流函数应用) 下拉刷新，上拉加载更多(这个地方有坑) 性能优化方面  截图分享功能事因：移动端分享功能，产品经理给的原型是 点击分享后将需要分享的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/09/JS屏幕截图/"/>
+
+
+
+
+
+  <title>JS屏幕截图 | Initial_W</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5d1d29f71ca63db6cf19e65a7233713e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Initial_W</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">请回答1992</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            书单
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-movies">
+          <a href="/movies" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-film"></i> <br />
+            
+            电影
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/09/JS屏幕截图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WANG.JIE">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://img3.imgtn.bdimg.com/it/u=474384258,3918404972&fm=214&gp=0.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Initial_W">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS屏幕截图</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-09T10:56:58+08:00">
+                2018-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>最近比较忙，很久没写博客了，今天抽空将最近项目中遇到的一些问题及一些解决方案记录一下。</p>
+</blockquote>
+<p>最近接触的项目主要是移动端的，关于移动端方面适配之类的文章太多了，对这方面的技术不做过多的阐述。主要记录下这次中遇到的一些吧。</p>
+<ol>
+<li>截图分享功能</li>
+<li>按钮防重复点击(节流函数应用)</li>
+<li>下拉刷新，上拉加载更多(这个地方有坑)</li>
+<li>性能优化方面</li>
+</ol>
+<h3 id="截图分享功能"><a href="#截图分享功能" class="headerlink" title="截图分享功能"></a>截图分享功能</h3><p>事因：移动端分享功能，产品经理给的原型是 点击分享后将需要分享的内容放在一个固定的容器中，生成UI指定的样式后，通过图片的方式分享到微信、微博等第三方应用中。</p>
+<p>技术选型：最初想到的是用  html2canvas,嗯，说完就去写了一个demo,具体效果也还可以，就是这个不能引用跨域的图片，解决的办法是直接先请求下来图片，再直接给准成Base64放上去了，简单粗暴。。。</p>
+<p>不过最后还是放弃了使用html2canvas,原因是在github的issues里说道这个插件可能还是会有些问题，比如导致生成的图片模糊(这个github也有专门针对解决的方案),页面空白之类的。又查了下发现一个stars数较高的，就是今天想说的了 <a href="https://github.com/cburgmer/rasterizeHTML.js" target="_blank" rel="noopener">rasterizeHTML.js</a>，经过在项目检验，这个确实挺好用的，用法在github上挺详细的，点击前面的链接就OK啦~~~</p>
+<p><strong>需要注意的地方：</strong></p>
+<ol>
+<li><p>生成图片是需要先生成canvas的，而canvas是需要指定宽高的。所以在生成图片也是需要宽高的，移动端宽度采用 750比较合适，高度的话可以写上最小高度 1350，这样保证截的图片长宽比比较合适，具体高度的话，除去UI给图的头尾部分固定高度，内容方面根据每行的高度来判断，写点计算代码算下 所需内容能生成多少行文字，再想加一下就好了。</p>
+</li>
+<li><p>比较关键的地方是此项目采用的是安卓套webview的方式完成，所以当点击分享的时候，需要传给安卓的是一张图片地址，而 第一步生成的是canvas，我们需要将其转换成blob，再通过formdat的方式将图片上传到后端，拿到图片链接，最后才是将图片传给安卓并分享出去。贴下关键代码：</p>
+</li>
+</ol>
+<p>截图模板.js<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">import &#123;codeHtml&#125; from <span class="string">"../../common/share-html"</span>;</span><br><span class="line">export default function (data = &#123;&#125;) &#123;</span><br><span class="line">    const &#123;</span><br><span class="line">        shareImage,</span><br><span class="line">        shareTitle,</span><br><span class="line">        shareTime,</span><br><span class="line">        shareContent,</span><br><span class="line">        contentHeight,</span><br><span class="line">        shareCode,</span><br><span class="line">        shareMsg</span><br><span class="line">    &#125; = data;</span><br><span class="line">    const w = document.getElementsByTagName('html')[<span class="number">0</span>].<span class="built_in">style</span>.fontSize;</span><br><span class="line">    <span class="built_in">return</span> `</span><br><span class="line">&lt;div <span class="built_in">style</span>=<span class="string">"width: 750px;text-align: center;background-color: #ffffff;"</span>&gt;</span><br><span class="line">&lt;<span class="built_in">style</span> type=<span class="string">"text/css"</span>&gt;</span><br><span class="line">html &#123;</span><br><span class="line"><span class="built_in">font</span>-size: 100px;</span><br><span class="line"><span class="built_in">height</span>: <span class="number">100</span><span class="symbol">%</span>;</span><br><span class="line">&#125;</span><br><span class="line">body&#123;</span><br><span class="line">padding: <span class="number">0</span>;</span><br><span class="line">margin: <span class="number">0</span>;</span><br><span class="line"><span class="built_in">background</span>-<span class="built_in">color</span>: #ffffff;</span><br><span class="line"><span class="built_in">height</span>: <span class="number">100</span><span class="symbol">%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">p &#123;</span><br><span class="line">    margin: <span class="number">0</span>;</span><br><span class="line">    padding: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.modal-img &#123;</span><br><span class="line">    <span class="built_in">width</span>: <span class="number">100</span><span class="symbol">%</span>;</span><br><span class="line">&#125;</span><br><span class="line">.modal-<span class="built_in">content</span> &#123;</span><br><span class="line">    <span class="built_in">font</span>-size: .28<span class="built_in">rem</span>;</span><br><span class="line">    <span class="built_in">background</span>: #fff;</span><br><span class="line">    <span class="built_in">height</span>: <span class="number">100</span><span class="symbol">%</span>;</span><br><span class="line">    <span class="comment">/*padding-bottom: 60px;*/</span></span><br><span class="line">&#125;</span><br><span class="line">.model-<span class="built_in">title</span> &#123;</span><br><span class="line">  <span class="built_in">font</span>-size: .36<span class="built_in">rem</span>;</span><br><span class="line">  <span class="built_in">font</span>-weight: bold;</span><br><span class="line">  padding-top: .15<span class="built_in">rem</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.modal-<span class="built_in">time</span> &#123;</span><br><span class="line">   <span class="built_in">color</span>: #9B9B9B;</span><br><span class="line">   <span class="built_in">font</span>-size: .24<span class="built_in">rem</span>;</span><br><span class="line">   padding-top: .15<span class="built_in">rem</span>;</span><br><span class="line">   text-align: left;</span><br><span class="line">   padding-left: .5<span class="built_in">rem</span>;</span><br><span class="line">&#125;</span><br><span class="line">.model-main-<span class="built_in">content</span> &#123;</span><br><span class="line">      <span class="comment">/*text-indent: 2em;*/</span></span><br><span class="line">      margin-top: .12<span class="built_in">rem</span>;</span><br><span class="line">      padding: <span class="number">0</span> .5<span class="built_in">rem</span>;</span><br><span class="line">      <span class="built_in">font</span>-size: .3<span class="built_in">rem</span>;</span><br><span class="line">      line-<span class="built_in">height</span>: <span class="number">1.5</span>;</span><br><span class="line">      <span class="built_in">min</span>-<span class="built_in">height</span>: $&#123;contentHeight&#125;px;</span><br><span class="line">      text-align: justify;</span><br><span class="line">      <span class="built_in">color</span>: #<span class="number">191919</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">$&#123;codeHtml.<span class="built_in">style</span>&#125;</span><br><span class="line"></span><br><span class="line">&lt;/<span class="built_in">style</span>&gt;</span><br><span class="line">     &lt;div class=<span class="string">"modal-content"</span>&gt;</span><br><span class="line">                &lt;img class=<span class="string">"modal-img"</span> src=<span class="string">"/static/img/header.png"</span>/&gt;</span><br><span class="line">                &lt;div class=<span class="string">"model-title"</span>&gt;$&#123;shareTitle&#125;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">                &lt;div class=<span class="string">"modal-time"</span>&gt;$&#123;shareTime&#125;&lt;/div&gt;</span><br><span class="line">                &lt;div class=<span class="string">"model-main-content"</span>&gt;</span><br><span class="line">                    $&#123;shareContent&#125;</span><br><span class="line"></span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">                $&#123;codeHtml.html&#125;</span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    `;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>分享页面.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">****</span><br><span class="line"><span class="keyword">import</span> marketShareHtml <span class="keyword">from</span> <span class="string">"../../../components/share-template/share-img"</span>;</span><br><span class="line">****</span><br><span class="line"></span><br><span class="line"> <span class="keyword">async</span> handleShare(news) &#123;<span class="keyword">let</span> shareTemContent = <span class="keyword">this</span>.htmlFilter(news.content);</span><br><span class="line">            <span class="keyword">let</span> shareTemTime = dayjs(news.publishTime * <span class="number">1000</span>).format(<span class="string">'YYYY-MM-DD HH:mm'</span>);</span><br><span class="line">            <span class="keyword">const</span> tempImg = <span class="keyword">new</span> Image();</span><br><span class="line">            <span class="keyword">const</span> vm = <span class="keyword">this</span>;</span><br><span class="line">            <span class="comment">// console.log(shareTemContent.length / 20, 'length');// 自动计算内容高度，自适应canvas高度。</span></span><br><span class="line">            <span class="keyword">const</span> templateHeight = shareTemContent.length / <span class="number">20</span> * <span class="number">40</span>;</span><br><span class="line">            <span class="keyword">const</span> tempH = templateHeight &gt; <span class="number">580</span> ? templateHeight : <span class="number">580</span>;</span><br><span class="line">            tempImg.src = <span class="string">'/static/img/header.png'</span>;</span><br><span class="line">            <span class="comment">// 图片加载完成后生成 html模板</span></span><br><span class="line">            tempImg.onload = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">const</span> html = marketShareHtml(&#123;</span><br><span class="line">                    shareTitle: <span class="string">''</span>,</span><br><span class="line">                    shareTime: shareTemTime,</span><br><span class="line">                    shareContent: shareTemContent,</span><br><span class="line">                    contentHeight: tempH,</span><br><span class="line">                    shareCode: <span class="string">''</span>,</span><br><span class="line">                    shareMsg: <span class="string">''</span></span><br><span class="line">                &#125;);</span><br><span class="line">                <span class="comment">// console.log(html, 22222);</span></span><br><span class="line">                <span class="keyword">const</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">'canvas'</span>);</span><br><span class="line">                <span class="keyword">let</span> tempHeight = <span class="number">720</span>;</span><br><span class="line">                <span class="keyword">const</span> finalHeight = tempHeight + tempH;</span><br><span class="line">                <span class="comment">// console.log(finalHeight, 'finalHeight');</span></span><br><span class="line">                canvas.width = <span class="number">750</span>;</span><br><span class="line">                canvas.height = finalHeight &gt; <span class="number">1280</span> ? finalHeight : <span class="number">1280</span>;</span><br><span class="line">                <span class="comment">// console.log(canvas.height, 'canvas.height');</span></span><br><span class="line">                <span class="keyword">const</span> res = <span class="keyword">await</span></span><br><span class="line">                <span class="comment">// 这个地方是关键代码---绘制canvas</span></span><br><span class="line">                vm.$rasterizeHTML.drawHTML(html, canvas);</span><br><span class="line">                <span class="comment">// 这个地方是生成blob，</span></span><br><span class="line">                vm.shareImage = canvas.toBlob(<span class="function">(<span class="params">blob</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="comment">// var newImg = document.createElement("img"),</span></span><br><span class="line">                    <span class="comment">// console.log('blob', blob);</span></span><br><span class="line">                    <span class="keyword">const</span> url = <span class="built_in">window</span>.URL.createObjectURL(blob);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (vm.first) &#123;</span><br><span class="line">                        vm.handleShare(news);</span><br><span class="line">                        vm.first = <span class="literal">false</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        vm.$store.dispatch(<span class="string">'dynamic/newsFlash/changeBlob'</span>, blob);</span><br><span class="line"></span><br><span class="line">                        <span class="comment">// 下面是将blob变成图片地址的实现方法。</span></span><br><span class="line">                        <span class="comment">// const fd = new FormData();</span></span><br><span class="line">                        <span class="comment">// fd.append('img', blob, 'image.png');</span></span><br><span class="line">                        <span class="comment">// axios(&#123;</span></span><br><span class="line">                        <span class="comment">//     url: '/b/a/u/info/img',</span></span><br><span class="line">                        <span class="comment">//     method: 'post',</span></span><br><span class="line">                        <span class="comment">//     data: fd,</span></span><br><span class="line">                        <span class="comment">//     headers: &#123;'Content-Type': 'multipart/form-data'&#125;</span></span><br><span class="line">                        <span class="comment">// &#125;).then(function (data) &#123;</span></span><br><span class="line">                        <span class="comment">//     console.log(data);</span></span><br><span class="line">                        <span class="comment">// &#125;).catch(function (err) &#123;</span></span><br><span class="line">                        <span class="comment">//     console.log(err);</span></span><br><span class="line">                        <span class="comment">// &#125;);</span></span><br><span class="line">                        vm.$store.dispatch(<span class="string">'dynamic/common/toggleSharePopupModal'</span>, &#123;<span class="attr">title</span>: <span class="string">'分享后需返回APP才能获得奖励'</span>, <span class="attr">showModal</span>: <span class="literal">true</span>, <span class="attr">screenShot</span>: <span class="literal">null</span>, <span class="attr">image</span>: vm.shareImage&#125;);</span><br><span class="line">                        <span class="comment">// vm.$ModalHelper.afterOpen('flash-news-wrap');</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;,</span><br></pre></td></tr></table></figure>
+<hr>
+<p>屏幕截图这块差不多就完结了，主要就是几种格式之间的转化，多注意下就好了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/30/git如何去除rebaseing状态/" rel="next" title="git如何去除rebaseing状态">
+                <i class="fa fa-chevron-left"></i> git如何去除rebaseing状态
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://img3.imgtn.bdimg.com/it/u=474384258,3918404972&fm=214&gp=0.jpg"
+                alt="WANG.JIE" />
+            
+              <p class="site-author-name" itemprop="name">WANG.JIE</p>
+              <p class="site-description motion-element" itemprop="description">身骑白马走北平，改换素衣回南诏。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/asd500asd" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:one.jie@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#截图分享功能"><span class="nav-number">1.</span> <span class="nav-text">截图分享功能</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WANG.JIE</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2161301"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
