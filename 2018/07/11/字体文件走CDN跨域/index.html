@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="前端," />
+  <meta name="keywords" content="防坑指南," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="网上鲜有get和set的方法的实例，在这边再mark一下。 get和set我个人理解本身只是一个语法糖，它定义的属性相当于“存储器属性” 为内部属性提供了一个方便习惯的读/写方式 ES5写法12345678910111213141516171819function Number(num) &amp;#123;  this._num = num           //这里的_num和get/set方法nu">
-<meta name="keywords" content="前端">
+<meta name="description" content="事因：线上环境静态资源走CDN，但出现了字体CDN跨域的情况。百度查了下可以改七牛云的白名单解决防盗链导致的跨域，但是修改后七牛处理需要很长时间。于是想到去年一个项目出现同样的问题，搜了下有道云笔记，感谢自己有记笔记的习惯。。。1分钟解决问题，字体转成base64，完美解决~~~  以下为解决方案： 知识就像内-裤，看不见但很重要。 如上，文字是由base64字体编码生成的，是不是碉堡？！ CS">
+<meta name="keywords" content="防坑指南">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript get set方法 ES5&#x2F;ES6写法">
-<meta property="og:url" content="http://yoursite.com/2018/05/07/JavaScript-get-set方法-ES5-ES6写法/index.html">
+<meta property="og:title" content="字体文件走CDN跨域">
+<meta property="og:url" content="http://yoursite.com/2018/07/11/字体文件走CDN跨域/index.html">
 <meta property="og:site_name" content="Initial_W">
-<meta property="og:description" content="网上鲜有get和set的方法的实例，在这边再mark一下。 get和set我个人理解本身只是一个语法糖，它定义的属性相当于“存储器属性” 为内部属性提供了一个方便习惯的读/写方式 ES5写法12345678910111213141516171819function Number(num) &amp;#123;  this._num = num           //这里的_num和get/set方法nu">
+<meta property="og:description" content="事因：线上环境静态资源走CDN，但出现了字体CDN跨域的情况。百度查了下可以改七牛云的白名单解决防盗链导致的跨域，但是修改后七牛处理需要很长时间。于是想到去年一个项目出现同样的问题，搜了下有道云笔记，感谢自己有记笔记的习惯。。。1分钟解决问题，字体转成base64，完美解决~~~  以下为解决方案： 知识就像内-裤，看不见但很重要。 如上，文字是由base64字体编码生成的，是不是碉堡？！ CS">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-07T02:45:59.635Z">
+<meta property="og:updated_time" content="2018-07-11T02:30:31.978Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript get set方法 ES5&#x2F;ES6写法">
-<meta name="twitter:description" content="网上鲜有get和set的方法的实例，在这边再mark一下。 get和set我个人理解本身只是一个语法糖，它定义的属性相当于“存储器属性” 为内部属性提供了一个方便习惯的读/写方式 ES5写法12345678910111213141516171819function Number(num) &amp;#123;  this._num = num           //这里的_num和get/set方法nu">
+<meta name="twitter:title" content="字体文件走CDN跨域">
+<meta name="twitter:description" content="事因：线上环境静态资源走CDN，但出现了字体CDN跨域的情况。百度查了下可以改七牛云的白名单解决防盗链导致的跨域，但是修改后七牛处理需要很长时间。于是想到去年一个项目出现同样的问题，搜了下有道云笔记，感谢自己有记笔记的习惯。。。1分钟解决问题，字体转成base64，完美解决~~~  以下为解决方案： 知识就像内-裤，看不见但很重要。 如上，文字是由base64字体编码生成的，是不是碉堡？！ CS">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/07/JavaScript-get-set方法-ES5-ES6写法/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/11/字体文件走CDN跨域/"/>
 
 
 
 
 
-  <title>JavaScript get set方法 ES5/ES6写法 | Initial_W</title>
+  <title>字体文件走CDN跨域 | Initial_W</title>
   
 
 
@@ -283,7 +283,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/07/JavaScript-get-set方法-ES5-ES6写法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/11/字体文件走CDN跨域/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="WANG.JIE">
@@ -300,7 +300,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript get set方法 ES5/ES6写法</h1>
+          <h1 class="post-title" itemprop="name headline">字体文件走CDN跨域</h1>
         
 
         <div class="post-meta">
@@ -312,8 +312,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-07T10:38:50+08:00">
-                2018-05-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T10:45:00+08:00">
+                2018-07-11
               </time>
             
 
@@ -335,8 +335,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/防坑指南/" itemprop="url" rel="index">
+                    <span itemprop="name">防坑指南</span>
                   </a>
                 </span>
 
@@ -372,28 +372,39 @@
       
 
       
-        <p>网上鲜有get和set的方法的实例，在这边再mark一下。</p>
-<p>get和set我个人理解本身只是一个语法糖，它定义的属性相当于“存储器属性”</p>
-<p>为内部属性提供了一个方便习惯的读/写方式</p>
-<h3 id="ES5写法"><a href="#ES5写法" class="headerlink" title="ES5写法"></a>ES5写法</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function Number(<span class="built_in">num</span>) &#123;</span><br><span class="line">  <span class="keyword">this</span>._num = <span class="built_in">num</span>           <span class="comment">//这里的_num和get/set方法num()不能重名</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//get/set方法使用同一个命名，增加可读性</span></span><br><span class="line">Number.prototype = &#123;</span><br><span class="line">  <span class="keyword">get</span> <span class="built_in">num</span>() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._num;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="keyword">set</span> <span class="built_in">num</span>(<span class="built_in">num</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>._num = <span class="built_in">num</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> test = <span class="keyword">new</span> Number(<span class="number">8</span>);</span><br><span class="line">console.log(test.<span class="built_in">num</span>);</span><br><span class="line">test.<span class="built_in">num</span> = <span class="number">88</span>;</span><br><span class="line">console.log(test.<span class="built_in">num</span>);</span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<blockquote>
-<p>8</p>
+        <blockquote>
+<p>事因：线上环境静态资源走CDN，但出现了字体CDN跨域的情况。百度查了下可以改七牛云的白名单解决防盗链导致的跨域，但是修改后七牛处理需要很长时间。于是想到去年一个项目出现同样的问题，搜了下有道云笔记，感谢自己有记笔记的习惯。。。1分钟解决问题，字体转成base64，完美解决~~~</p>
 </blockquote>
-<blockquote>
-<p>88</p>
-</blockquote>
-<p>在这里，定义了Number类的一个值_num，再原型中注入set和get方法，此时就可以使用test.num取值和赋值，更加直观。</p>
-<hr>
-<h3 id="ES6写法"><a href="#ES6写法" class="headerlink" title="ES6写法"></a>ES6写法</h3><p>再看看用ES6中class的实现：</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Num</span> </span>&#123;</span><br><span class="line">  constructor(<span class="built_in">num</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>._num = <span class="built_in">num</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">get</span> <span class="built_in">num</span>() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._num;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">set</span> <span class="built_in">num</span>(<span class="built_in">num</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>._num = <span class="built_in">num</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> test = <span class="keyword">new</span> Num(<span class="number">9</span>);</span><br><span class="line">console.log(test.<span class="built_in">num</span>);</span><br><span class="line">test.<span class="built_in">num</span> = <span class="number">99</span>;</span><br><span class="line">console.log(test.<span class="built_in">num</span>);</span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<blockquote>
-<p>9</p>
-</blockquote>
-<blockquote>
-<p>99</p>
-</blockquote>
+<p>以下为解决方案：</p>
+<p>知识就像内-裤，看不见但很重要。</p>
+<p>如上，文字是由base64字体编码生成的，是不是碉堡？！</p>
+<p>CSS3给我们带来了@font-face,网页中可以展现的字体就不局限于电脑中已安装的几款字体。@font-face的作用是从网上下载并使用自定义字体，使页面显示字体不依赖用户的操作系统字体环境。</p>
+<p>当然，需要注意点的是字体文件的体积一般都比较大，而且需要额外的http请求连接，而且需要兼容多种浏览器的话，往往需要三四个或者更多格式的字体文件，目前最主要的几种网络字体(web font)格式包括WOFF，SVG，EOT，OTF/TTF。这直接影响了网页的加载速度，所以你要清楚它的利与弊。国外的网站中用的比较多，国内嘛….在我看来，弊大于利。</p>
+<p>慢慢的就有了WebFont (Web Open Font Format) 这个技术，极大滴有针对性的压缩了字体文件的体积，压缩了体积就解决了个大问题，很实用。</p>
+<p>今天我要介绍的就是把WebFont的字体转换成base64编码，直接放在样式表里面，是不是感觉很神奇？</p>
+<p>生成下载需要的字体</p>
+<p>首先，先设置我们要使用的文字，使用WebFont，推荐阿里妈妈WebFont平台<a href="http://www.iconfont.cn/webfont/#!/webfont/index和有字库http://www.youziku.com/，使用简单粗暴，输入你要的文字，下载就完了，代码都给你生成好了。" target="_blank" rel="noopener">http://www.iconfont.cn/webfont/#!/webfont/index和有字库http://www.youziku.com/，使用简单粗暴，输入你要的文字，下载就完了，代码都给你生成好了。</a></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">font-face</span> &#123;<span class="attribute">font-family</span>: <span class="string">'webfont'</span>;</span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">'webfont.eot'</span>); <span class="comment">/* IE9*/</span></span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">'webfont.eot?#iefix'</span>) <span class="built_in">format</span>(<span class="string">'embedded-opentype'</span>), <span class="comment">/* IE6-IE8 */</span></span><br><span class="line">    <span class="built_in">url</span>(<span class="string">'webfont.woff'</span>) <span class="built_in">format</span>(<span class="string">'woff'</span>), <span class="comment">/* chrome、firefox */</span></span><br><span class="line">    <span class="built_in">url</span>(<span class="string">'webfont.ttf'</span>) <span class="built_in">format</span>(<span class="string">'truetype'</span>), <span class="comment">/* chrome、firefox、opera、Safari, Android, iOS 4.2+*/</span></span><br><span class="line">    <span class="built_in">url</span>(<span class="string">'webfont.svg#webfont'</span>) <span class="built_in">format</span>(<span class="string">'svg'</span>); <span class="comment">/* iOS 4.1- */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ctrl+c ctrl+v 就解决了需求，兼容至BT的IE6，简直碉堡。<br>解码</p>
+<p>然后，<a href="http://www.motobit.com/util/base64-decoder-encoder.asp" target="_blank" rel="noopener">http://www.motobit.com/util/base64-decoder-encoder.asp</a>,</p>
+<p><strong>打开这个网址，上传字体就能直接生成base64编码，神器==！</strong>==</p>
+<p>注意：我们要转换的字体是.ttf格式的。</p>
+<p>然后就得到了base64编码，但是这个网站生成的base64很奇葩，有很多空格换行，代码少可以认为删掉，但是生成的代码一般都不少，处理很麻烦，在这里教大家一个简单的方法，把代码复制丢进word，ctrl+h替换，【替换内容】输入^p，【替换为】什么都不要填&gt;确定，换行空格就都没有了。好，Get了可以使用的base64字体编码。<br>怎么使用？<br>把处理好了的base64编码放在下面代码中：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">font-face</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">'webfont'</span>;</span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(data:font/truetype;charset=utf-8;base64,XXXXXXXXXXXXXXXXX) <span class="built_in">format</span>(<span class="string">'truetype'</span>);</span><br><span class="line">    <span class="attribute">font-weight</span>: normal;</span><br><span class="line">    <span class="attribute">font-style</span>: normal</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就这样，定义我们要使用的字体了。<br>调用<br>使用我们定义的字体：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.web-font</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>:<span class="string">"webfont"</span> <span class="meta">!important</span>;</span><br><span class="line">  <span class="attribute">font-size</span>:<span class="number">16px</span>;</span><br><span class="line">  <span class="attribute">font-style</span>:normal;</span><br><span class="line">  -webkit-<span class="attribute">font</span>-smoothing: antialiased;        <span class="comment">//字体抗锯齿</span></span><br><span class="line">  -webkit-text-stroke-<span class="attribute">width</span>: <span class="number">0.2px</span>;           <span class="comment">//设置或检索对象中的文字的描边宽度。可取小数和medium（描边宽度中等）, thick（描边宽度粗）, thin（描边宽度细）关键字。默认值为0。</span></span><br><span class="line">  -moz-osx-<span class="attribute">font</span>-smoothing: grayscale;         <span class="comment">//字体抗锯齿</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好了，这样就大功告成，简单实用粗暴，赶紧试试吧。</p>
+<p>下面来谈谈这个技术的优缺点吧！</p>
+<p>优点：</p>
+<p>1、首先不得不说的是它的体积：很小，有针对性的字体，文字越少，体积越小；</p>
+<p>2、美化网页文字、增强界面效果，不需要图片来代替，也就减少了http请求；</p>
+<p>3、base64编码直接放进了样式表，这样不需要额外的http请求；</p>
+<p>4、字体的大小、颜色、粗细可控；<br>5、支持主流浏览器，即使不支持也可以优雅降级；<br>缺点：</p>
+<p>1、维护麻烦，如果PM那天要改版，改下文字就要重新生成字体-转码；</p>
+<p>2、字体比较少，正规授权的字体很少；</p>
+<p>3、暂时发现只能使用一个编码，使用.ttf格式的字体转换的base64编码；</p>
+<p>4、发现火狐支持并没有chrome那么完美，字体太小会出现缺失，所以字体必须足够大；</p>
+<p>5、不支持IE，对IE不兼容。如果追求兼容性，还是推荐使用@font-face直接下载字体；<br>欧克，撒U拉拉。</p>
 
       
     </div>
@@ -411,7 +422,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/前端/" rel="tag"># 前端</a>
+            <a href="/tags/防坑指南/" rel="tag"># 防坑指南</a>
           
         </div>
       
@@ -424,8 +435,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/04/地址栏中输入url到显示出网页间的过程/" rel="next" title="地址栏中输入url到显示出网页间的过程">
-                <i class="fa fa-chevron-left"></i> 地址栏中输入url到显示出网页间的过程
+              <a href="/2018/07/09/性能优化/" rel="next" title="性能优化">
+                <i class="fa fa-chevron-left"></i> 性能优化
               </a>
             
           </div>
@@ -433,10 +444,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/07/node项目发送邮件失败/" rel="prev" title="node项目发送邮件失败">
-                node项目发送邮件失败 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -493,17 +500,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -583,22 +581,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES5写法"><span class="nav-number">1.</span> <span class="nav-text">ES5写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6写法"><span class="nav-number">2.</span> <span class="nav-text">ES6写法</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
